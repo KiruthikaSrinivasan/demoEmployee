@@ -1,0 +1,4 @@
+1,ram,kumar,it,1000
+2,kirthi,srinivasan,it,2000
+3,aadhi,vishwak,sales,2000
+4,Arun,CD,it,4000

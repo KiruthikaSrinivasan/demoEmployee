@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import employeeEntity.Employee;
@@ -34,8 +35,12 @@ public class EmployeeController {
 		return employeeService.getEmployeesById(id);
 	}
 	
-	@GetMapping("/listBySal/{fromSal}/{toSal}")
-	public List<Employee> getEmployeesBySal(@PathVariable Integer fromSal, @PathVariable Integer toSal) {
-		return employeeService.getEmployeesBySal(fromSal, toSal);
+	@GetMapping("/listByCon")
+	public List<Employee> getEmployeesByCon(
+			@RequestParam(required = false) String name,
+			@RequestParam(required = false) Integer fromSal, 
+			@RequestParam(required = false) Integer toSal) {
+		return employeeService.getEmployeesByCon(name,fromSal, toSal);
 	}
+	
 	}

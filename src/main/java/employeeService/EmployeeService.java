@@ -71,31 +71,63 @@ public class EmployeeService {
 			return employee;
 		}
 
-		public List<Employee> getEmployeesBySal(Integer fromSal, Integer toSal) {
-			   List<Employee> employees = new ArrayList<>();
-		        try {
-		            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
-		            String line;
-		            while ((line = reader.readLine()) != null) {
-		                String[] parts = line.split(",");
-		                Employee employee = new Employee();
-		                
-		                if((Integer.valueOf(parts[4])>= fromSal) && (Integer.valueOf(parts[4])<= toSal ))
-		                {
-		                employee.setId(parts[0]);
+
+		public List<Employee> getEmployeesByCon(String name,Integer fromSal, Integer toSal) {
+			List<Employee> employees = new ArrayList<>();
+	        try {
+	            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                String[] parts = line.split(",");
+	                Employee employee = new Employee();
+	                if(name != null)
+	                {
+	                	if((parts[1].equalsIgnoreCase(name)) || (parts[2].equalsIgnoreCase(name))) {
+	                		 employee.setId(parts[0]);
+	     	                employee.setfirstName(parts[1]);
+	     	                employee.setlastName(parts[2]);
+	     	                employee.setDept(parts[3]);
+	     	                employee.setSal(Integer.valueOf(parts[4]));
+	     	                employees.add(employee);
+	                	}
+	                }
+	                else {
+	                if(fromSal != null && toSal != null) {
+	                if((Integer.valueOf(parts[4])>= fromSal) && (Integer.valueOf(parts[4])<= toSal ))
+	                {
+	                employee.setId(parts[0]);
+	                employee.setfirstName(parts[1]);
+	                employee.setlastName(parts[2]);
+	                employee.setDept(parts[3]);
+	                employee.setSal(Integer.valueOf(parts[4]));
+	                employees.add(employee);
+	                }
+	                }
+	                else {
+	                	if((toSal == null) && (Integer.valueOf(parts[4])>= fromSal)) {
+	                	employee.setId(parts[0]);
 		                employee.setfirstName(parts[1]);
 		                employee.setlastName(parts[2]);
 		                employee.setDept(parts[3]);
 		                employee.setSal(Integer.valueOf(parts[4]));
 		                employees.add(employee);
-		                }
-		    
-		            }
-		            reader.close();
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-		        return employees;
+	                }
+                       if((fromSal == null) && (Integer.valueOf(parts[4])<= toSal )) {
+	                	employee.setId(parts[0]);
+		                employee.setfirstName(parts[1]);
+		                employee.setlastName(parts[2]);
+		                employee.setDept(parts[3]);
+		                employee.setSal(Integer.valueOf(parts[4]));
+		                employees.add(employee);
+	                }
+	                }
+	                }
+	            }
+	            reader.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return employees;
 		}
 	}
 
